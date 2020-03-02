@@ -1,11 +1,16 @@
 package com.jcarlosalarconp.game;
 
-
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class InputListener implements InputProcessor {
     private Character character;
+    private Collisions collisions;
+    private Actor[] actor;
+    private Rectangle[] rectangles;
+    private Boolean isCollision;
 
     public InputListener(Character character){
         super();
@@ -14,17 +19,17 @@ public class InputListener implements InputProcessor {
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode){
-            case Input.Keys.W:
-                character.animations('w');
-                break;
-            case Input.Keys.A:
-                character.animations('a');
+            case Input.Keys.D:
+                character.doAnimations('d');
                 break;
             case Input.Keys.S:
-                character.animations('s');
+                character.doAnimations('s');
                 break;
-            case Input.Keys.D:
-                character.animations('d');
+            case Input.Keys.A:
+                character.doAnimations('a');
+                break;
+            case Input.Keys.W:
+                character.doAnimations('w');
                 break;
         }
         return false;
@@ -50,25 +55,28 @@ public class InputListener implements InputProcessor {
     }
 
     @Override
-    public boolean keyTyped(char keycode) {
-        switch (keycode){
-            case 'w':
+    public boolean keyTyped(char key) {
+        String characterDirection=String.valueOf(key);
+        switch (characterDirection.toLowerCase()){
+            case "w":
                 character.moveCharacter('w');
                 break;
-            case 's':
+            case "s":
                 character.moveCharacter('s');
                 break;
-            case 'a':
+            case "a":
                 character.moveCharacter('a');
                 break;
-            case 'd':
+            case "d":
                 character.moveCharacter('d');
                 break;
+
         }        return false;
     }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println(screenX+" y:"+screenY);
         return false;
     }
 
