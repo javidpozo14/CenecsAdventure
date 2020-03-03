@@ -1,0 +1,48 @@
+
+botone.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+down_green
+  rotate: false
+  xy: 1, 1
+  size: 860, 895
+  orig: 860, 895
+  offset: 0, 0
+  index: -1
+
+botone2.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+left_green
+  rotate: false
+  xy: 1, 1
+  size: 860, 895
+  orig: 860, 895
+  offset: 0, 0
+  index: -1
+
+botone3.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+right_green
+  rotate: false
+  xy: 1, 1
+  size: 860, 895
+  orig: 860, 895
+  offset: 0, 0
+  index: -1
+
+botone4.png
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+up_green
+  rotate: false
+  xy: 1, 1
+  size: 860, 895
+  orig: 860, 895
+  offset: 0, 0
+  index: -1
