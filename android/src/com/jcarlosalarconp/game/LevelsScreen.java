@@ -14,6 +14,8 @@ public class LevelsScreen extends AppCompatActivity {
     }
 
     public void play(View view) {
+        Intent service = new Intent(this, MyService.class);
+        startService(service);
         Intent intent= new Intent(this, AndroidLauncher.class);
         startActivity(intent);
     }

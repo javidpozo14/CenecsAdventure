@@ -7,11 +7,11 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 
 /**
  * @author Juan Carlos
- * InputListener.java manage the input of the player tu control the character
+ * Listener.java manage the input of the player tu control the character
  * Use the functions of Character.java (doAnimations(), moveCharacter(), stopCharacter())
  */
 
-public class InputListener implements InputProcessor {
+public class Listener implements InputProcessor {
     private Character character;
     private Collisions collisions;
     private Actor[] actor;
@@ -19,7 +19,7 @@ public class InputListener implements InputProcessor {
     private Boolean isCollision;
 
     //Contructor only need the character
-    public InputListener(Character character){
+    public Listener(Character character){
         super();
         this.character=character;
     }

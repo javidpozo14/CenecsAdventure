@@ -2,9 +2,17 @@ package com.jcarlosalarconp.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import java.awt.DisplayMode;
 import java.awt.Point;
@@ -22,6 +30,13 @@ public class CenecsAdventure extends ApplicationAdapter {
 	private Map map;
 	private Stage stage;
 	private Collisions collisions;
+	private TextureAtlas textureAtlas;
+	private Stage stageButtons;
+	private ImageButton rightButton;
+	private ImageButton leftButton;
+	private ImageButton upButton;
+	private ImageButton downButton;
+	private Music music;
 
 	@Override
 	public void create () {
@@ -32,7 +47,7 @@ public class CenecsAdventure extends ApplicationAdapter {
 		collisions.checkCollision(map.getMap(),character);	//Cheking collisions from map and character
 		batch = new SpriteBatch();
 		InputMultiplexer multiplexer = new InputMultiplexer();
-		multiplexer.addProcessor(new InputListener(character));
+		multiplexer.addProcessor(new Listener(character));
 		Gdx.input.setInputProcessor(multiplexer);	//Set the input processor
 		stage=new Stage();
 		stage.setDebugAll(true);
@@ -41,6 +56,97 @@ public class CenecsAdventure extends ApplicationAdapter {
 		for(int b=0;b<collisions.getActor().length-1;b++){
 			stage.addActor(collisions.getActor()[b]);
 		}
+		stageButtons = new Stage(new ScreenViewport());
+		Gdx.input.setInputProcessor(stageButtons);
+		textureAtlas = new TextureAtlas("buttons/botone.pack");
+		Skin skin = new Skin();
+		skin.addRegions(textureAtlas);
+		ImageButton.ImageButtonStyle rightStyle = new ImageButton.ImageButtonStyle();
+		rightStyle.up = skin.getDrawable("right_green");
+		rightButton = new ImageButton(rightStyle);
+		rightButton.addListener(new InputListener() {
+			@Override
+			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				character.stopCharacter('d');
+				return;
+			}
+
+			@Override
+			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+					character.moveCharacter('d');
+				character.doAnimations('d');
+				return true;
+			}
+		});
+
+        ImageButton.ImageButtonStyle leftStyle = new ImageButton.ImageButtonStyle();
+        leftStyle.up = skin.getDrawable("left_green");
+        leftButton = new ImageButton(leftStyle);
+        leftButton.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                character.stopCharacter('a');
+                return;
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                character.moveCharacter('a');
+                character.doAnimations('a');
+                return true;
+            }
+        });
+
+        ImageButton.ImageButtonStyle upStyle = new ImageButton.ImageButtonStyle();
+        upStyle.up = skin.getDrawable("up_green");
+        upButton = new ImageButton(upStyle);
+        upButton.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                character.stopCharacter('w');
+                return;
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                character.moveCharacter('w');
+                character.doAnimations('w');
+                return true;
+            }
+        });
+
+        ImageButton.ImageButtonStyle downStyle = new ImageButton.ImageButtonStyle();
+        downStyle.up = skin.getDrawable("down_green");
+        downButton = new ImageButton(downStyle);
+        downButton.addListener(new InputListener() {
+            @Override
+            public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+                character.stopCharacter('s');
+                return;
+            }
+
+            @Override
+            public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
+                character.moveCharacter('s');
+                character.doAnimations('s');
+                return true;
+            }
+        });
+
+		Table table = new Table();
+		table.bottom();
+		table.setFillParent(true);
+        table.add(leftButton).height(Gdx.graphics.getHeight() / 6).width(Gdx.graphics.getWidth() / 7);
+        table.add(upButton).height(Gdx.graphics.getHeight() / 6).width(Gdx.graphics.getWidth() / 7);
+        table.add(downButton).height(Gdx.graphics.getHeight() / 6).width(Gdx.graphics.getWidth() / 7);
+        table.add(rightButton).height(Gdx.graphics.getHeight() / 6).width(Gdx.graphics.getWidth() / 7);
+
+        stageButtons.addActor(table);
+
+		music = Gdx.audio.newMusic(Gdx.files.internal("music/track.mp3"));
+		music.setLooping(true);
+		music.setVolume(8.5f);
+		music.play();
 	}
 
 	@Override
@@ -55,6 +161,8 @@ public class CenecsAdventure extends ApplicationAdapter {
 		map.renderObjects();
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
+		stageButtons.act();
+		stageButtons.draw();
 	}
 
 	@Override
