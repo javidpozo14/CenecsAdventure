@@ -5,6 +5,12 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+/**
+ * @author Juan Carlos
+ * InputListener.java manage the input of the player tu control the character
+ * Use the functions of Character.java (doAnimations(), moveCharacter(), stopCharacter())
+ */
+
 public class InputListener implements InputProcessor {
     private Character character;
     private Collisions collisions;
@@ -12,10 +18,13 @@ public class InputListener implements InputProcessor {
     private Rectangle[] rectangles;
     private Boolean isCollision;
 
+    //Contructor only need the character
     public InputListener(Character character){
         super();
         this.character=character;
     }
+
+    //When the key is down, the character do the animation depending of the direction
     @Override
     public boolean keyDown(int keycode) {
         switch (keycode){
@@ -35,6 +44,7 @@ public class InputListener implements InputProcessor {
         return false;
     }
 
+    //When quit the key down, the character stop with the default sprite of the direction
     @Override
     public boolean keyUp(int keycode) {
         switch (keycode){
@@ -54,6 +64,7 @@ public class InputListener implements InputProcessor {
         return false;
     }
 
+    //When the key is typed, the character moves in to the right direction
     @Override
     public boolean keyTyped(char key) {
         String characterDirection=String.valueOf(key);

@@ -9,6 +9,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
+/**
+ * @author Juan Carlos
+ * Character.java manage all from the main character that we control in the game
+ * This class extends from 'Actor' (LibGDX class)
+ */
 public class Character extends Actor {
     public float x, y;
     private Animation animation;
@@ -25,21 +30,24 @@ public class Character extends Actor {
     private float characterWidth, characterHeight;
     private Boolean isCollision;
     private Map map;
+
+    //Constructor with player's location at the map (x, y) and the player's size (characterWidth, characterHeight)
     public Character(int x, int y,float characterWidth,float characterHeight) {
         this.x = x;
         this.y = y;
-        this.setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10);
+        this.setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10); //rescale the size of the player depending of the map
         collisions = new Collisions();
         map = new Map();
         collisions.checkCollision(map.getMap(),this);
-        mapCollision = collisions.getMapCollisions();
+        mapCollision = collisions.getMapCollisions(); //Get the map collisions
         this.characterWidth = characterWidth;
         this.characterHeight = characterHeight;
         texture = new Texture(Gdx.files.internal("gfx/character.png"));
         characterDirection = "";
         characterHitBox = new Rectangle(x,y,texture.getWidth(),texture.getHeight());
-        tmp = TextureRegion.split(texture, texture.getWidth() / 17, texture.getHeight() / 8);
+        tmp = TextureRegion.split(texture, texture.getWidth() / 17, texture.getHeight() / 8); //Set the size to scale the atlas of the character
         regions = new TextureRegion[4];
+        //Split the atlas
         for (int b = 0; b < regions.length; b++) {
             regions[b] = tmp[0][0];
             animation = new Animation((float) 0.2, regions);
@@ -54,7 +62,7 @@ public class Character extends Actor {
         setBounds(x,y,characterWidth-1,characterHeight-10);
         batch.draw(sprite, x, y, characterWidth, characterHeight);
     }
-
+    //Check the character direction and collision to change the sprite and move it at the map
     public void moveCharacter(char direction) {
         switch (direction) {
             case 'w':
@@ -111,7 +119,7 @@ public class Character extends Actor {
                 break;
         }
     }
-
+    //Get the movement of the player to do the motion animation
     public void doAnimations(char direction) {
         switch (direction) {
             case 'd':
@@ -144,7 +152,7 @@ public class Character extends Actor {
                 break;
         }
     }
-
+    //When the player stop moving, the sprite return to the default sprite depending of the direction
     public void stopCharacter(char direction) {
         switch (direction) {
             case 'd':
@@ -182,7 +190,7 @@ public class Character extends Actor {
         }
 
     }
-
+    //Getters to use variables in others classes of the project
     @Override
     public float getX() {
         return x;

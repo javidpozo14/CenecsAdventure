@@ -10,6 +10,12 @@ import com.badlogic.gdx.maps.tiled.TiledMapTileLayer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 
+/**
+ * @author Juan Carlos
+ * Map.java Manage all from the map (Size, Layers, camera, render, asset)
+ * The game only have one map
+ */
+
 public class Map {
     private TiledMap map;
     private AssetManager manager;
@@ -22,18 +28,18 @@ public class Map {
     private int[] decorationLayers;
     private float w,h;
     public Map() {
-        w = Gdx.graphics.getWidth();
-        h = Gdx.graphics.getHeight();
+        w = Gdx.graphics.getWidth(); //Width of the screen
+        h = Gdx.graphics.getHeight(); //Height of the screen
         manager = new AssetManager();
         manager.setLoader(TiledMap.class, new TmxMapLoader());
         manager.load("mapas/tmx/cuevaPrincipal.tmx", TiledMap.class);
         manager.finishLoading();
-        map = manager.get("mapas/tmx/cuevaPrincipal.tmx", TiledMap.class);
+        map = manager.get("mapas/tmx/cuevaPrincipal.tmx", TiledMap.class); //Set the tmx map from directory
         MapProperties properties = map.getProperties();
-        tileWidth = properties.get("tilewidth", Integer.class);
-        tileHeight = properties.get("tileheight", Integer.class);
-        mapWidthInTiles = properties.get("width", Integer.class);
-        mapHeightInTiles = properties.get("height", Integer.class);
+        tileWidth = properties.get("tilewidth", Integer.class); //Get the Tile Width
+        tileHeight = properties.get("tileheight", Integer.class); //Get the Tile Height
+        mapWidthInTiles = properties.get("width", Integer.class); //Get the Map Width (In Pixels)
+        mapHeightInTiles = properties.get("height", Integer.class); //Get the Map Height (In Pixels)
         mapWidthInPixels = mapWidthInTiles * tileWidth;
         mapHeightInPixels = mapHeightInTiles * tileHeight;
         renderer = new OrthogonalTiledMapRenderer(map);
@@ -42,10 +48,11 @@ public class Map {
         camera.position.y = mapHeightInPixels/2;
         w = w/mapWidthInPixels;
         h = h/mapHeightInPixels;
-        MapLayers mapLayers = map.getLayers();
+        MapLayers mapLayers = map.getLayers(); //Get the Map Layers from the .tmx map
         terrainLayer = (TiledMapTileLayer) mapLayers.get("Suelo");
         terrainLayer2 = (TiledMapTileLayer) mapLayers.get("Decoracion");
         terrainLayer3 = (TiledMapTileLayer) mapLayers.get("Laterales");
+        //decorationLayers is the top layer to put the character behind this layer
         decorationLayers = new int[]{
                 mapLayers.getIndex("CapaArriba")
         };
@@ -62,6 +69,10 @@ public class Map {
         renderer.render(decorationLayers);
     }
 
+    public void dispose() {
+        manager.dispose();
+    }
+    //Getters to use variables in others classes of the project
     public OrthographicCamera getCamera() {
         return camera;
     }
@@ -74,9 +85,6 @@ public class Map {
         return mapHeightInPixels;
     }
 
-    public void dispose() {
-        manager.dispose();
-    }
 
     public TiledMap getMap() {
         return map;
