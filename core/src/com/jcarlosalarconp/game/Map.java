@@ -18,6 +18,7 @@ public class Map {
     private OrthogonalTiledMapRenderer renderer;
     private TiledMapTileLayer terrainLayer;
     private TiledMapTileLayer terrainLayer2;
+    private TiledMapTileLayer terrainLayer3;
     private int[] decorationLayers;
     private float w,h;
     public Map() {
@@ -44,6 +45,7 @@ public class Map {
         MapLayers mapLayers = map.getLayers();
         terrainLayer = (TiledMapTileLayer) mapLayers.get("Suelo");
         terrainLayer2 = (TiledMapTileLayer) mapLayers.get("Decoracion");
+        terrainLayer3 = (TiledMapTileLayer) mapLayers.get("Laterales");
         decorationLayers = new int[]{
                 mapLayers.getIndex("CapaArriba")
         };
@@ -53,6 +55,7 @@ public class Map {
         renderer.getBatch().begin();
         renderer.renderTileLayer(terrainLayer);
         renderer.renderTileLayer(terrainLayer2);
+        renderer.renderTileLayer(terrainLayer3);
         renderer.getBatch().end();
     }
     public void renderObjects() {

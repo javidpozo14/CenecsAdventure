@@ -19,7 +19,7 @@ public class CenecsAdventure extends ApplicationAdapter {
 	@Override
 	public void create () {
 		map = new Map();
-		character = new Character(100,100, map.getMapWidthInPixels()/7f,map.getMapHeightInPixels()/3f);
+		character = new Character(150,100, map.getMapWidthInPixels()/7f,map.getMapHeightInPixels()/3f);
 		collisions=new Collisions();
 		collisions.checkCollision(map.getMap(),character);
 		batch = new SpriteBatch();

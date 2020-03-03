@@ -11,18 +11,18 @@ public class Collisions {
     private Rectangle[] mapCollisions;
     private Rectangle characterHitBox;
     private Map map;
-    public void checkCollision(TiledMap map, Character character) {
+    public void checkCollision(TiledMap tiledMap, Character character) {
         characterHitBox=new Rectangle();
-        map = new TiledMap();
         characterHitBox.set(character.getX(),character.getY(),character.getCharacterWidth(),character.getCharacterHeight());
-        MapObjects mons = map.getLayers().get("Colisiones").getObjects();
+        MapObjects mons = tiledMap.getLayers().get("Colisiones").getObjects();
         actor=new Actor[mons.getCount()];
+        map = new Map();
         mapCollisions=new Rectangle[mons.getCount()];
         for (int i = 0;i < mons.getCount(); i++) {
             RectangleMapObject obj1 = (RectangleMapObject) mons.get(i);
             Rectangle rect1 = obj1.getRectangle();
             mapCollisions[i]=rect1;
-            mapCollisions[i].set(rect1.x*rect1.getWidth(),rect1.y*rect1.getHeight(),rect1.width*rect1.getWidth(),rect1.height*rect1.getHeight());
+            mapCollisions[i].set(rect1.x*map.getWidth(),rect1.y*map.getHeight(), rect1.width*map.getWidth(), rect1.height*map.getHeight());
             actor[i]=new Actor();
             actor[i].setBounds(rect1.x,rect1.y,rect1.width,rect1.height);
         }
