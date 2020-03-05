@@ -30,6 +30,7 @@ public class Character extends Actor {
     private float characterWidth, characterHeight;
     private Boolean isCollision;
     private Map map;
+    private Stone stone;
 
     //Constructor with player's location at the map (x, y) and the player's size (characterWidth, characterHeight)
     public Character(int x, int y,float characterWidth,float characterHeight) {
@@ -38,7 +39,11 @@ public class Character extends Actor {
         this.setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10); //rescale the size of the player depending of the map
         collisions = new Collisions();
         map = new Map();
-        collisions.checkCollision(map.getMap(),this);
+        try {
+            collisions.checkCollision(map.getMap(), this, stone);
+        }catch(Exception e){
+            System.out.println("Not Stone found");
+        }
         mapCollision = collisions.getMapCollisions(); //Get the map collisions
         this.characterWidth = characterWidth;
         this.characterHeight = characterHeight;
