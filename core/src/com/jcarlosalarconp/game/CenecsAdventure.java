@@ -76,7 +76,7 @@ public class CenecsAdventure extends ApplicationAdapter {
 
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-					character.moveCharacter('d');
+				character.moveCharacter('d');
 				character.doAnimations('d');
 				return true;
 			}

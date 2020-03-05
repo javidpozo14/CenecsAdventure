@@ -30,11 +30,7 @@ public class Stone extends Actor {
         this.y = y;
         this.setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10); //rescale the size of the player depending of the map
         collisions = new Collisions();
-        try {
-            collisions.checkCollision(map.getMap(), character, this);
-        }catch(Exception e){
-            System.out.println("Not Character found");
-        }
+        collisions.checkCollision(map.getMap(), character, this);
         this.stoneWidth = stoneWidth;
         this.stoneHeight = stoneHeight;
         stoneHitBox = new Rectangle(x,y,Gdx.graphics.getWidth()/10, Gdx.graphics.getHeight()/10);
