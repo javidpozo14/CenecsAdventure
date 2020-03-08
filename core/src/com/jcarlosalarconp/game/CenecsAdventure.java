@@ -38,7 +38,8 @@ public class CenecsAdventure extends ApplicationAdapter {
 	private ImageButton downButton;
 	private Music music;
 	private Stone stone;
-
+	private Boolean pressed;
+	private char direction;
 	@Override
 	public void create () {
 		//Creating map, character, collision and stage
@@ -70,13 +71,15 @@ public class CenecsAdventure extends ApplicationAdapter {
 		rightButton.addListener(new InputListener() {
 			@Override
 			public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
+				setDirection(true);
 				character.stopCharacter('d');
 				return;
 			}
 
 			@Override
 			public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-				character.moveCharacter('d');
+				setDirection(false);
+				direction=moveCharacter('d');
 				character.doAnimations('d');
 				return true;
 			}
@@ -88,13 +91,15 @@ public class CenecsAdventure extends ApplicationAdapter {
         leftButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                character.stopCharacter('a');
-                return;
+				setDirection(true);
+				character.stopCharacter('a');
+				return;
             }
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                character.moveCharacter('a');
+				setDirection(false);
+				direction=moveCharacter('a');
                 character.doAnimations('a');
                 return true;
             }
@@ -106,13 +111,15 @@ public class CenecsAdventure extends ApplicationAdapter {
         upButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                character.stopCharacter('w');
+				setDirection(true);
+				character.stopCharacter('w');
                 return;
             }
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                character.moveCharacter('w');
+				setDirection(false);
+				direction=moveCharacter('w');
                 character.doAnimations('w');
                 return true;
             }
@@ -124,15 +131,17 @@ public class CenecsAdventure extends ApplicationAdapter {
         downButton.addListener(new InputListener() {
             @Override
             public void touchUp(InputEvent event, float x, float y, int pointer, int button) {
-                character.stopCharacter('s');
-                return;
+				setDirection(true);
+				character.stopCharacter('s');
+				return;
             }
 
             @Override
             public boolean touchDown(InputEvent event, float x, float y, int pointer, int button) {
-                character.moveCharacter('s');
+				setDirection(false);
+				direction=moveCharacter('s');
                 character.doAnimations('s');
-                return true;
+				return true;
             }
         });
 
@@ -160,17 +169,42 @@ public class CenecsAdventure extends ApplicationAdapter {
 		map.renderLayers();
 		batch.begin();
 		character.render(batch);
-//		stone.render(batch);
+		//stone.render(batch);
 		batch.end();
 		map.renderObjects();
 		stage.act(Gdx.graphics.getDeltaTime());
 		stage.draw();
 		stageButtons.act();
 		stageButtons.draw();
+		if(Gdx.input.isButtonPressed(0)&&!pressed){
+			character.moveCharacter(direction);
+		}
 	}
 
 	@Override
 	public void dispose () {
 		map.dispose();
 	}
+
+	public char moveCharacter(char direction) {
+		switch (direction) {
+			case 'w':
+				this.direction = 'w';
+				break;
+			case 'd':
+				this.direction = 'd';
+				break;
+			case 's':
+				this.direction = 's';
+				break;
+			case 'a':
+				this.direction = 'a';
+				break;
+		}
+		return direction;
+	}
+	public void setDirection(Boolean pressed){
+		this.pressed = pressed;
+	}
+
 }

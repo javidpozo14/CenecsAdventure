@@ -27,6 +27,7 @@ public class Map {
     private TiledMapTileLayer terrainLayer3;
     private int[] decorationLayers;
     private float w,h;
+
     public Map() {
         w = Gdx.graphics.getWidth(); //Width of the screen
         h = Gdx.graphics.getHeight(); //Height of the screen
