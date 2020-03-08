@@ -19,11 +19,11 @@ public class Collisions {
     private Map map;
 
     //Constructor with the map (tiledMap) and the character (character)
-    public void checkCollision(TiledMap tiledMap, Character character, Stone stone) {
+    public void checkCollision(TiledMap tiledMap, Character character) {
         characterHitBox=new Rectangle();
         characterHitBox.set(character.getX(),character.getY(),character.getCharacterWidth(),character.getCharacterHeight()); //Set the character HitBox getting the variables from Character.java
-        stoneHitBox=new Rectangle();
-        stoneHitBox.set(stone.getX(),stone.getY(),stone.getStoneWidth(),stone.getStoneHeight()); //Set the character HitBox getting the variables from Character.java
+        //stoneHitBox=new Rectangle();
+        //stoneHitBox.set(stone.getX(),stone.getY(),stone.getStoneWidth(),stone.getStoneHeight()); //Set the character HitBox getting the variables from Character.java
         MapObjects mons = tiledMap.getLayers().get("Colisiones").getObjects(); //Get the collision layer from the TiledMap
         actor=new Actor[mons.getCount()];
         map = new Map();

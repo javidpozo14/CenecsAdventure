@@ -39,7 +39,7 @@ public class Character extends Actor {
         this.setSize(Gdx.graphics.getWidth()/10,Gdx.graphics.getHeight()/10); //rescale the size of the player depending of the map
         collisions = new Collisions();
         map = new Map();
-        collisions.checkCollision(map.getMap(), this, stone);
+        collisions.checkCollision(map.getMap(), this);
         mapCollision = collisions.getMapCollisions(); //Get the map collisions
         this.characterWidth = characterWidth;
         this.characterHeight = characterHeight;

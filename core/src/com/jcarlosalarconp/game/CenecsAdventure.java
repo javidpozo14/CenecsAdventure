@@ -44,9 +44,9 @@ public class CenecsAdventure extends ApplicationAdapter {
 		//Creating map, character, collision and stage
 		map = new Map();
 		character = new Character(150,100, map.getMapWidthInPixels()/7f,map.getMapHeightInPixels()/3f);
-		stone = new Stone(280,290, map.getMapWidthInPixels()/7f,map.getMapHeightInPixels()/3f);
+		//stone = new Stone(280,290, map.getMapWidthInPixels()/7f,map.getMapHeightInPixels()/3f);
 		collisions=new Collisions();
-		collisions.checkCollision(map.getMap(),character, stone);	//Cheking collisions from map and character
+		collisions.checkCollision(map.getMap(),character);	//Cheking collisions from map and character
 		batch = new SpriteBatch();
 		InputMultiplexer multiplexer = new InputMultiplexer();
 		multiplexer.addProcessor(new Listener(character));
@@ -54,7 +54,7 @@ public class CenecsAdventure extends ApplicationAdapter {
 		stage=new Stage();
 		stage.setDebugAll(true);
 		stage.addActor(character); //Set the character in the stage
-		stage.addActor(stone); //Set the character in the stage
+		//stage.addActor(stone); //Set the character in the stage
 		//Iterate collisions of the map and character
 		for(int b=0;b<collisions.getActor().length-1;b++){
 			stage.addActor(collisions.getActor()[b]);
@@ -160,7 +160,7 @@ public class CenecsAdventure extends ApplicationAdapter {
 		map.renderLayers();
 		batch.begin();
 		character.render(batch);
-		stone.render(batch);
+//		stone.render(batch);
 		batch.end();
 		map.renderObjects();
 		stage.act(Gdx.graphics.getDeltaTime());
