@@ -44,7 +44,7 @@ public class CenecsAdventure extends ApplicationAdapter {
 	public void create () {
 		//Creating map, character, collision and stage
 		map = new Map();
-		character = new Character(150,100, map.getMapWidthInPixels()/7f,map.getMapHeightInPixels()/3f);
+		character = new Character(Gdx.graphics.getWidth()/2, Gdx.graphics.getWidth()/4, map.getMapWidthInPixels()/2.5f,map.getMapHeightInPixels()/1.5f);
 		//stone = new Stone(280,290, map.getMapWidthInPixels()/7f,map.getMapHeightInPixels()/3f);
 		collisions=new Collisions();
 		collisions.checkCollision(map.getMap(),character);	//Cheking collisions from map and character

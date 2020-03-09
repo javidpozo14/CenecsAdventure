@@ -68,7 +68,7 @@ public class Character extends Actor {
         switch (direction) {
             case 'w':
                 for(int b=0; b<mapCollision.length; b++){
-                    if(mapCollision[b].overlaps(characterHitBox.set(x,y+9, characterWidth, characterHeight))){
+                    if(mapCollision[b].overlaps(characterHitBox.set(x,y+4, characterWidth, characterHeight))){
                         isCollision = true;
                         break;
                     }else{
@@ -76,12 +76,12 @@ public class Character extends Actor {
                     }
                 }
                 if(isCollision == false){
-                    y = y+9;
+                    y = y+4;
                 }
                 break;
             case 's':
                 for(int b=0; b<mapCollision.length; b++){
-                    if(mapCollision[b].overlaps(characterHitBox.set(x,y-9, characterWidth, characterHeight))){
+                    if(mapCollision[b].overlaps(characterHitBox.set(x,y-4, characterWidth, characterHeight))){
                         isCollision = true;
                         break;
                     }else{
@@ -89,12 +89,12 @@ public class Character extends Actor {
                     }
                 }
                 if(isCollision == false){
-                    y = y-9;
+                    y = y-4;
                 }
                 break;
             case 'd':
                 for(int b=0; b<mapCollision.length; b++){
-                    if(mapCollision[b].overlaps(characterHitBox.set(x+9, y, characterWidth, characterHeight))){
+                    if(mapCollision[b].overlaps(characterHitBox.set(x+4, y, characterWidth, characterHeight))){
                         isCollision = true;
                         break;
                     }else{
@@ -102,12 +102,12 @@ public class Character extends Actor {
                     }
                 }
                 if(isCollision == false){
-                    x = x+9;
+                    x = x+4;
                 }
                 break;
             case 'a':
                 for(int b=0; b<mapCollision.length; b++){
-                    if(mapCollision[b].overlaps(characterHitBox.set(x-9, y, characterWidth, characterHeight))){
+                    if(mapCollision[b].overlaps(characterHitBox.set(x-4, y, characterWidth, characterHeight))){
                         isCollision = true;
                         break;
                     }else{
@@ -115,7 +115,7 @@ public class Character extends Actor {
                     }
                 }
                 if(isCollision == false){
-                    x = x-9;
+                    x = x-4;
                 }
                 break;
         }
